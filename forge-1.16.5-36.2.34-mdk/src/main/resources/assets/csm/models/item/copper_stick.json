@@ -1,0 +1,6 @@
+{
+  "parent": "item/handHeld",
+  "textures": {
+    "layer0": "csm:item/copper_stick"
+  }
+}
