@@ -17,7 +17,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<MinotaurEntity>> MINOTAUR = ENTITY_TYPES.register("minotaur",
             () -> EntityType.Builder.of(MinotaurEntity::new, EntityClassification.MONSTER)
                     .sized(0.6F, 1.95F)
-                    .build(new ResourceLocation(CSM.MODID, "chomper").toString()));
+                    .build(new ResourceLocation(CSM.MODID, "minotaur").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

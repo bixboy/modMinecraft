@@ -1,5 +1,6 @@
 package fr.bixboy.csm.entity.custom;
 
+import fr.bixboy.csm.CSM;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -15,6 +16,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -22,8 +24,8 @@ import net.minecraft.world.World;
 
 public class MinotaurEntity extends MonsterEntity{
 
-    public MinotaurEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
-        super(type, worldIn);
+    public MinotaurEntity(EntityType<? extends MonsterEntity> entityType, World worldIn) {
+        super(entityType, worldIn);
     }
 
     // Méthode pour définir les attributs de l'entité (santé, vitesse, etc.)
@@ -34,6 +36,11 @@ public class MinotaurEntity extends MonsterEntity{
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)        // Dégâts d'attaque
                 .add(Attributes.ATTACK_SPEED, 1.0f)         // Vitesse d'attaque
                 .add(Attributes.FOLLOW_RANGE, 35.0D);       // Portée de poursuite
+    }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {
+        return new ResourceLocation(CSM.MODID, "copper_ingot");
     }
 
     @Override

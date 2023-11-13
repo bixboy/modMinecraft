@@ -15,5 +15,6 @@
   "itemGroup.csmtab": "Mod Bixboy",
   "item.csm.divine_apple": "divine Apple",
   "item.csm.divine_juice": "divine Juice",
-  "item.csm.minotaur": "Spawn Minotaure"
+  "item.csm.minotaur": "Spawn Minotaur",
+  "entity.csm.minotaur": "Minotaur"
 }

@@ -14,5 +14,6 @@
   "item.csm.amethyst_boots": "Bottes d'améthyste",
   "item.csm.divine_apple": "Pomme Divine",
   "item.csm.divine_juice": "Jus Divin",
-  "item.csm.minotaur": "Minotaure"
+  "item.csm.minotaur": "Minotaure",
+  "entity.csm.minotaur": "Minotaure"
 }

@@ -1,14 +1,13 @@
 package fr.bixboy.csm.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import fr.bixboy.csm.entity.custom.MinotaurEntity;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
-public class MinotaurModel<T extends MinotaurEntity> extends SegmentedModel<T> {
+public class MinotaurModel<T extends MinotaurEntity> extends EntityModel<T> {
     private final ModelRenderer head;
     private final ModelRenderer body;
     private final ModelRenderer rightLeg;
@@ -44,9 +43,11 @@ public class MinotaurModel<T extends MinotaurEntity> extends SegmentedModel<T> {
         rightArm = new ModelRenderer(this);
         rightArm.setPos(-8.0F, -1.0F, -4.0F);
 
+
         bone2 = new ModelRenderer(this);
         bone2.setPos(-17.0F, 27.0F, 0.0F);
         rightArm.addChild(bone2);
+
 
         rightArm_r1 = new ModelRenderer(this);
         rightArm_r1.setPos(25.0F, 0.0F, 0.0F);
@@ -80,12 +81,14 @@ public class MinotaurModel<T extends MinotaurEntity> extends SegmentedModel<T> {
         bone3.addChild(cube_r1_r3);
         setRotationAngle(cube_r1_r3, 0.3491F, 0.0F, 0.0F);
 
+
         leftLeg = new ModelRenderer(this);
         leftLeg.setPos(4.0F, 11.0F, 0.0F);
         leftLeg.texOffs(0, 54).addBox(-3.0F, 0.0F, -3.0F, 7.0F, 13.0F, 7.0F, 0.0F, false);
 
         leftArm = new ModelRenderer(this);
         leftArm.setPos(8.0F, -1.0F, 0.0F);
+
 
         bone = new ModelRenderer(this);
         bone.setPos(-8.0F, 27.0F, 0.0F);
@@ -109,30 +112,24 @@ public class MinotaurModel<T extends MinotaurEntity> extends SegmentedModel<T> {
         leftArm_r1.texOffs(49, 21).addBox(9.0F, -3.0F, -30.0F, 7.0F, 19.0F, 7.0F, 0.0F, false);
     }
 
-
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount,
                                   float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.xRot = headPitch * ((float) Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
-        this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
     }
 
-
     @Override
-    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight,
+                       int packedOverlay, float red, float green, float blue, float alpha) {
         head.render(matrixStack, buffer, packedLight, packedOverlay);
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         rightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
         rightArm.render(matrixStack, buffer, packedLight, packedOverlay);
         leftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
         leftArm.render(matrixStack, buffer, packedLight, packedOverlay);
-    }
-
-    @Override
-    public Iterable<ModelRenderer> parts() {
-        return ImmutableList.of(this.head, this.body, this.leftLeg, this.rightLeg, this.leftArm, this.rightArm);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
