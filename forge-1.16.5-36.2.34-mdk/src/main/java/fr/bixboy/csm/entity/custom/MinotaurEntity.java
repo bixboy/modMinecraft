@@ -6,10 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -28,6 +25,9 @@ public class MinotaurEntity extends MonsterEntity{
         super(entityType, worldIn);
     }
 
+
+    private static final ResourceLocation LOOT_TABLE = new ResourceLocation(CSM.MODID, "loot_tables/entities/minotaur.json");
+
     // Méthode pour définir les attributs de l'entité (santé, vitesse, etc.)
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.createMobAttributes()
@@ -39,23 +39,17 @@ public class MinotaurEntity extends MonsterEntity{
     }
 
     @Override
-    protected ResourceLocation getDefaultLootTable() {
-        return new ResourceLocation(CSM.MODID, "copper_ingot");
-    }
-
-    @Override
     protected void registerGoals() {
         // Bouge la tête dans toutes les directions de manière aléatoire
-        this.goalSelector.addGoal(1, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+
+        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 
         // Attaque au corps-à-corps avec une portée de 1.2 blocs
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
 
         // Évite l'eau et se déplace au hasard sur terre
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-
-        // Regarde autour de lui de manière aléatoire
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
 
         // Cible le joueur s'il est à proximité
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -65,14 +59,16 @@ public class MinotaurEntity extends MonsterEntity{
 
         // Cible un golem de fer s'il est à proximité
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-
-        // Cible un creeper s'il est à proximité
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, CreeperEntity.class, true));
     }
 
     @Override
     protected int getExperienceReward(PlayerEntity player) {
         return 3 + this.random.nextInt(5);
+    }
+
+    @Override
+    protected net.minecraft.util.ResourceLocation getDefaultLootTable() {
+        return LOOT_TABLE;
     }
 
     @Override

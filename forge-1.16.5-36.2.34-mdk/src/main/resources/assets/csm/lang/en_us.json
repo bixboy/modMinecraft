@@ -1,5 +1,6 @@
 {
   "item.csm.copper_ingot": "Copper ingot",
+  "block.csm.copper_ore": "Copper Ore",
   "item.csm.copper_stick": "Copper stick",
   "block.csm.blue_emerald_block": "blue Emerald Block",
   "item.csm.copper_sword": "Copper Sword",
@@ -16,5 +17,6 @@
   "item.csm.divine_apple": "divine Apple",
   "item.csm.divine_juice": "divine Juice",
   "item.csm.minotaur": "Spawn Minotaur",
-  "entity.csm.minotaur": "Minotaur"
+  "entity.csm.minotaur": "Minotaur",
+  "item.csm.mirror": "Mirror"
 }

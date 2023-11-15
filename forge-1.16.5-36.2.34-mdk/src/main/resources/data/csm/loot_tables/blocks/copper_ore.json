@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "csm:copper_ore"
+          "name": "csm:copper_ingot"
         }
       ],
       "conditions": [

@@ -1,5 +1,6 @@
 {
   "item.csm.copper_ingot": " Lingot de cuivre",
+  "block.csm.copper_ore": "Minerai de cuivre",
   "item.csm.copper_stick": " Bâton de cuivre",
   "block.csm.blue_emerald_block": "Bloc d'émeraude bleue",
   "item.csm.copper_sword": "Épée en cuivre",
@@ -15,5 +16,6 @@
   "item.csm.divine_apple": "Pomme Divine",
   "item.csm.divine_juice": "Jus Divin",
   "item.csm.minotaur": "Minotaure",
-  "entity.csm.minotaur": "Minotaure"
+  "entity.csm.minotaur": "Minotaure",
+  "entity.csm.mirror": "Miroir"
 }
