@@ -18,11 +18,24 @@ public class PlayerSizeGUI extends Screen{
 
     private int guiLeft;
     private int guiTop;
+
+    int sidebarWidth = 50;
+    int buttonHeight = 40;
+    int gap = 10;
+    int startY = guiTop + gap; // Commencer la barre latérale un peu en bas du fond blanc
+    int startX = guiLeft - sidebarWidth - gap;
     @Override
     protected void init() {
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
 
+
+        for (int i = 0; i < 4; i++) {
+            int buttonY = startY + i * (buttonHeight + gap);
+
+            // Dessiner chaque bouton dans la barre latérale
+            addButton(new ButtonRaces(startX, buttonY, sidebarWidth, buttonHeight, i));
+        }
     }
 
     @Override

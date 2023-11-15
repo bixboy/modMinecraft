@@ -2,6 +2,7 @@ package fr.bixboy.csm.init;
 
 import fr.bixboy.csm.CSM;
 import fr.bixboy.csm.blocks.BlockRedEmerald;
+import fr.bixboy.csm.utils.ModItemGroups;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -29,7 +30,7 @@ public class ModBlocks {
     public static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier)
     {
         RegistryObject<Block> block = BLOCKS.register(name, supplier);
-        Moditems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        Moditems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(ModItemGroups.CSM_TAB)));
         return block;
     }
 
