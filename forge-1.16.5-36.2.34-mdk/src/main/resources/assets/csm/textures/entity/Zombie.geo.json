@@ -1,0 +1,59 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.Zombie",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "corps",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 10, -3], "size": [8, 15, 5], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "bras_droit",
+					"pivot": [2, 24, -0.5],
+					"cubes": [
+						{"origin": [2, 15, -2], "size": [3, 10, 3], "uv": [26, 0]}
+					]
+				},
+				{
+					"name": "bras_gauche",
+					"pivot": [-6, 24, -0.5],
+					"cubes": [
+						{"origin": [-9, 15, -2], "size": [3, 10, 3], "uv": [18, 20]}
+					]
+				},
+				{
+					"name": "jambe_gauche",
+					"pivot": [-2.5, 10, -0.5],
+					"cubes": [
+						{"origin": [-5, 0, -2], "size": [3, 10, 3], "uv": [0, 29]}
+					]
+				},
+				{
+					"name": "jambe_droite",
+					"pivot": [-1.5, 10, -0.5],
+					"cubes": [
+						{"origin": [-2, 0, -2], "size": [3, 10, 3], "uv": [30, 13]}
+					]
+				},
+				{
+					"name": "tete",
+					"pivot": [-2, 25, -0.5],
+					"cubes": [
+						{"origin": [-5, 25, -2], "size": [6, 6, 3], "uv": [0, 20]}
+					]
+				}
+			]
+		}
+	]
+}

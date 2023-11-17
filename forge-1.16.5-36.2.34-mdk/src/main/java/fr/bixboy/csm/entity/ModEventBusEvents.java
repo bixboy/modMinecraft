@@ -15,6 +15,7 @@ public class ModEventBusEvents {
     public static void registerAttributes(EntityAttributeCreationEvent event)
     {
         event.put(ModEntities.MINOTAUR.get(), MinotaurEntity.createAttributes().build());
+        event.put(ModEntities.ZOMB.get(), ZombMoche.createAttributes().build());
     }
 
     public static void onRegisterEntities(RegistryEvent.Register<EntityType<?>> event) {

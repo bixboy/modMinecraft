@@ -10,13 +10,16 @@ import fr.bixboy.csm.init.Moditems;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import software.bernie.geckolib.GeckoLib;
 
 @Mod(CSM.MODID)
 public class CSM {
@@ -33,6 +36,7 @@ public class CSM {
         ModBlocks.BLOCKS.register(bus);
         ModTileEntities.TILE_ENTITIES.register(bus);
         ModEntities.ENTITY_TYPES.register(bus);
+        GeckoLib.initialize();
     }
 
     private void setup(FMLCommonSetupEvent e)
@@ -51,4 +55,5 @@ public class CSM {
     {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.MINOTAUR.get(), MinotaurRenderer::new);
     }
+
 }

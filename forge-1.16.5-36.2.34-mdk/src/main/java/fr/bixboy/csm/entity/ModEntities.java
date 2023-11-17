@@ -19,6 +19,11 @@ public class ModEntities {
                     .sized(0.6F, 1.95F)
                     .build(new ResourceLocation(CSM.MODID, "minotaur").toString()));
 
+    public static final RegistryObject<EntityType<ZombMoche>> ZOMB = ENTITY_TYPES.register("zomb",
+            () -> EntityType.Builder.of(ZombMoche::new, EntityClassification.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .build(new ResourceLocation(CSM.MODID, "zomb").toString()));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

@@ -64,5 +64,7 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("unlock", InventoryChangeTrigger.Instance.hasItems(ModBlocks.COPPER_ORE.get()))
                 .save(consumer, new ResourceLocation(CSM.MODID, "copper_blast"));
 
+
+
     }
 }
