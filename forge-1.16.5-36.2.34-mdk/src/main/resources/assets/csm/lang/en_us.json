@@ -1,4 +1,5 @@
 {
+
   "item.csm.copper_ingot": "Copper ingot",
   "block.csm.copper_ore": "Copper Ore",
   "item.csm.copper_stick": "Copper stick",
@@ -19,5 +20,29 @@
   "item.csm.divine_juice": "divine Juice",
   "item.csm.minotaur": "Spawn Minotaur",
   "entity.csm.minotaur": "Minotaur",
-  "item.csm.mirror": "Mirror"
+  "item.csm.mirror": "Mirror",
+
+  "gui.race_tipo_1": "Human",
+  "gui.race_tipo_2": "Dwarf",
+  "gui.race_tipo_3": "Elf",
+  "gui.race_tipo_4": "Kull",
+  "gui.race_tipo_5": "Orc",
+  "gui.race_tipo_6": "Grell",
+  "gui.race_tipo_7": "Vinska",
+
+
+  "gui.description_human": "Humans, the adaptable race of the world, are known for their resourcefulness and resilience. They are diverse in culture and appearance, showcasing a wide spectrum of talents and skills",
+
+  "gui.description_dwarves": "Dwarves, the stout and resilient race, excel in craftsmanship and mining. Known for their sturdy build, impressive beards, and strong will, they dwell in vast underground cities carved from stone",
+
+  "gui.description_elves": "Elves, the graceful beings of nature, are known for their ethereal beauty and connection to the forests. They possess an affinity for magic and possess keen senses, often residing in ancient woodlands",
+
+  "gui.description_kull": "The Kull, towering beings with imposing horns, have an unyielding spirit and immense physical strength. They prefer solitary lives, often living atop remote mountains or in isolated valleys",
+
+  "gui.description_orcs": "Orcs are vile creatures, akin to men, but with beastlike features. Their skin is usually olive green in color, but some ethnicities have a darker complexion. Capable only of destruction, they fight on the front line",
+
+  "gui.description_grell": "The grell are cunning,fast and sadistic  beings,although they've got many weak spots such as their insatiable curiousity.They can have fangs, pointy ears,claws or even strong jaws.They're the lithest in combat and are amazing at organizing traps and ambushes",
+
+  "gui.description_vinska": "The Vinska, also called Hard skull as a slur, are one of the most rare and mysterious races: they're fascinating creatures who managed to keep living life even after its end, though suffering this way the consequences of undeath"
 }
+
