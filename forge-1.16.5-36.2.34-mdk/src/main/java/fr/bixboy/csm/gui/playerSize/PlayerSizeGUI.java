@@ -1,32 +1,22 @@
 package fr.bixboy.csm.gui.playerSize;
 
-import com.google.gson.JsonObject;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.bixboy.csm.CSM;
-import fr.bixboy.csm.entity.model.CustomPlayerModel;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.gui.DisplayEffectsScreen;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +37,11 @@ public class PlayerSizeGUI extends Screen{
     static String lang_races;
     static String desc_races;
 
+    int posCheckF = 89;
+    int posCheckM = 89;
+    boolean checkF = false;
+    boolean checkM = false;
+
     private float xMouse;
     private float yMouse;
     private boolean ScreenInf = true;
@@ -55,22 +50,23 @@ public class PlayerSizeGUI extends Screen{
 
     private boolean Skins;
 
+    boolean checked1 = true;
+    boolean checked2 = false;
+    boolean checked3 = false;
+    boolean checked4 = false;
+
+    boolean check1 = true;
+    boolean check2 = false;
+    boolean check3 = false;
+    boolean check4 = false;
+
+    private static float rotationAngleY = 180.0F;
+    boolean restart = true;
+
+    private static float scale = 1.0F;
+    private static float scaleLarge = 1.0F;
+
     private static final ResourceLocation BUTTON_IMAGE1 = new ResourceLocation(CSM.MODID, "textures/bg_gui_base.png");
-
-    private CustomPlayerModel customPlayerModel; // Instance de votre modèle de joueur personnalisé
-
-    // Définir des méthodes pour changer l'apparence du modèle
-    private void changeToRaceModel() {
-        // Code pour changer le modèle en fonction de la race choisie
-    }
-
-    private void changeToGenderModel() {
-        // Code pour changer le modèle en fonction du genre choisi
-    }
-
-    private void changeToAccessoryModel() {
-        // Code pour changer le modèle en fonction de l'accessoire choisi
-    }
 
     private String titre;
     private String paragraphe;
@@ -81,32 +77,44 @@ public class PlayerSizeGUI extends Screen{
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
 
-        this.addButton(new ImageButton(guiLeft + 165, guiTop + (ySize / 2) - 50, 21, 22, 174, 44, 0, BUTTON_IMAGE1, humanButton -> {
+        this.addButton(new ImageButton(guiLeft + 165, guiTop + (ySize / 2) - 50, 21, 22, 174, checkButton(checked1, 1), 0, BUTTON_IMAGE1, humanButton -> {
             ScreenInf = true;
             ScreenRace = false;
             ScreenAccessory = false;
             Skins = false;
+            drawButtonGender();
+            checked(1, 1);
+
         }));
 
-        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) - 20, 21, 22, 174, 44, 0, BUTTON_IMAGE1, humanButton -> {
+        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) - 20, 21, 22, 174, checkButton(checked2, 1), 0, BUTTON_IMAGE1, humanButton -> {
             ScreenRace = true;
             ScreenAccessory = false;
             ScreenInf = false;
             Skins = false;
+            drawButtonGender();
+            checked(2, 1);
+
         }));
 
-        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) + 10, 21, 22, 174, 66, 0, BUTTON_IMAGE1, humanButton -> {
+        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) + 10, 21, 22, 174, checkButton(checked3, 1), 0, BUTTON_IMAGE1, humanButton -> {
             ScreenAccessory = true;
             ScreenRace = false;
             ScreenInf = false;
             Skins = false;
+            drawButtonGender();
+            checked(3, 1);
+
         }));
 
-        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) + 40, 21, 22, 174, 66, 0, BUTTON_IMAGE1, humanButton -> {
+        this.addButton(new ImageButton(guiLeft + 165,  guiTop + (ySize/2) + 40, 21, 22, 174, checkButton(checked4, 1), 0, BUTTON_IMAGE1, humanButton -> {
             Skins = true;
             ScreenAccessory = false;
             ScreenRace = false;
             ScreenInf = false;
+            drawButtonGender();
+            checked(4, 1);
+
         }));
 
         this.addButton(new Button(guiLeft + 58,  guiTop + 215, 60, 20, new TranslationTextComponent("Save"), saveButton -> {
@@ -116,37 +124,200 @@ public class PlayerSizeGUI extends Screen{
 
         //Races
 
-        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 65, 69, 16, 174, 169, 0, BUTTON_IMAGE1, humanButton -> {
+        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 65, 69, 16, 174, checkButton(check1, 2), 0, BUTTON_IMAGE1, humanButton -> {
             Skins = false;
             ScreenAccessory = false;
             ScreenRace = false;
             ScreenInf = true;
             race = 1;
+            drawButtonGender();
+            checked(1, 2);
+            scale = 1.0F;
+            scaleLarge = 1.0F;
         }));
 
-        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 85, 69, 16, 174, 169, 0, BUTTON_IMAGE1, DwarvesButton -> {
+        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 85, 69, 16, 174, checkButton(check2, 2), 0, BUTTON_IMAGE1, DwarvesButton -> {
             Skins = false;
             ScreenAccessory = false;
             ScreenRace = false;
             ScreenInf = true;
             race = 2;
+            drawButtonGender();
+            checked(2, 2);
+            scale = 0.7F;
+            scaleLarge = 1.0F;
+
         }));
 
-        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 105, 69, 16, 174, 169, 0, BUTTON_IMAGE1, ElvesButton -> {
+        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 105, 69, 16, 174, checkButton(check3, 2), 0, BUTTON_IMAGE1, ElvesButton -> {
             Skins = false;
             ScreenAccessory = false;
             ScreenRace = false;
             ScreenInf = true;
             race = 3;
+            drawButtonGender();
+            checked(3, 2);
+            scale = 1.0F;
+            scaleLarge = 1.0F;
+
         }));
 
-        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 125, 69, 16, 174, 169, 0, BUTTON_IMAGE1, KullButton -> {
+        this.addButton(new ImageButton(guiLeft - 60,  guiTop + 125, 69, 16, 174, checkButton(check4, 2), 0, BUTTON_IMAGE1, KullButton -> {
             Skins = false;
             ScreenAccessory = false;
             ScreenRace = false;
             ScreenInf = true;
             race = 4;
+            drawButtonGender();
+            checked(4, 2);
+            scale = 1.2F;
+            scaleLarge = 1.2F;
+
         }));
+
+        //Rotate buttons
+        this.addButton(new ImageButton(guiLeft + 56,  guiTop + 110, 11, 13, 174, 88, 0, BUTTON_IMAGE1, rotateLeft -> {
+        rotateRight();
+        }));
+
+        this.addButton(new ImageButton(guiLeft + 105,  guiTop + 110, 11, 13, 174, 101, 0, BUTTON_IMAGE1, rotateRight -> {
+        rotateLeft();
+        }));
+
+    }
+
+    private void checked(int i, int A) {
+        if (A == 1)
+        {
+            switch (i) {
+                case 1:
+
+                    checked1 = true;
+                    checked2 = false;
+                    checked3 = false;
+                    checked4 = false;
+
+                    break;
+
+                case 2:
+
+                    checked1 = false;
+                    checked2 = true;
+                    checked3 = false;
+                    checked4 = false;
+
+                    break;
+
+                case 3:
+
+                    checked1 = false;
+                    checked2 = false;
+                    checked3 = true;
+                    checked4 = false;
+
+                    break;
+
+                case 4:
+
+                    checked1 = false;
+                    checked2 = false;
+                    checked3 = false;
+                    checked4 = true;
+
+                    break;
+
+            }
+        } else {
+            switch (i) {
+                case 1:
+
+                    check1 = true;
+                    check2 = false;
+                    check3 = false;
+                    check4 = false;
+
+                    break;
+
+                case 2:
+
+                    check1 = false;
+                    check2 = true;
+                    check3 = false;
+                    check4 = false;
+
+                    break;
+
+                case 3:
+
+                    check1 = false;
+                    check2 = false;
+                    check3 = true;
+                    check4 = false;
+
+                    break;
+
+                case 4:
+
+                    check1 = false;
+                    check2 = false;
+                    check3 = false;
+                    check4 = true;
+
+                    break;
+
+            }
+        }
+
+    }
+
+    private int checkButton(boolean check, int i) {
+        int pose = 0;
+
+        if (i == 1) {
+            if (check) {
+                return pose = 44;
+            } else {
+                return pose = 66;
+            }
+        }
+
+        else if (i == 2) {
+            if (check) {
+                return pose = 185;
+            }
+            else {
+                return pose = 169;
+            }
+        }
+
+        return pose;
+    }
+
+    private void drawButtonGender() {
+
+        if (ScreenRace) {
+            this.addButton(new ImageButton(guiLeft + 40,  guiTop + 70, 17, 16, posCheckF, 230, 0, BUTTON_IMAGE1, GirlButton -> {
+                checkF = true;
+                if(checkF) {
+                    posCheckF = 106;
+                    posCheckM = 89;
+                    checkM = false;
+                }
+            }));
+
+            this.addButton(new ImageButton(guiLeft + 40,  guiTop + 90, 17, 16, posCheckM, 230, 0, BUTTON_IMAGE1, BoyButton -> {
+                checkM = true;
+                if (checkM) {
+                    posCheckM = 106;
+                    posCheckF = 89;
+                    checkF = false;
+                }
+            }));
+        }
+        else {
+            this.buttons.clear();
+            init();
+        }
     }
 
     @Override
@@ -154,8 +325,10 @@ public class PlayerSizeGUI extends Screen{
 
         this.renderBackground(matrices);
         drawBackground(matrices);
+        drawButtonGender();
         drawText(matrices);
         super.render(matrices, mouseX, mouseY, delta);
+        resetRotation();
 
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
@@ -191,12 +364,18 @@ public class PlayerSizeGUI extends Screen{
             drawCenteredString(matrixStack, this.font, "Chose your Skin", guiLeft + 87, guiTop + 20, 11299672);
         }
 
+        if (ScreenRace) {
+            drawCenteredString(matrixStack, this.font, "Gender", guiLeft + 40, guiTop + 53, 11299672);
+            drawCenteredString(matrixStack, this.font, "F", guiLeft + 33, guiTop + 75, 11299672);
+            drawCenteredString(matrixStack, this.font, "M", guiLeft + 33, guiTop + 95, 11299672);
+        }
+
         switch (race) {
             case 1:
                 lang_races = I18n.get("gui.race_tipo_1");
                 desc_races = I18n.get("gui.description_human");
 
-                if (!Skins && !ScreenAccessory && ScreenInf && !ScreenRace) {
+                if (!Skins && !ScreenAccessory && ScreenInf || ScreenRace) {
                     renderTextWithLineBreaks(matrixStack, desc_races, guiLeft + 75, guiTop + 150, 11299672, 27);
                 }
 
@@ -211,7 +390,7 @@ public class PlayerSizeGUI extends Screen{
                 lang_races = I18n.get("gui.race_tipo_2");
                 desc_races = I18n.get("gui.description_dwarves");
 
-                if (!Skins && !ScreenAccessory && ScreenInf && !ScreenRace) {
+                if (!Skins && !ScreenAccessory && ScreenInf || ScreenRace) {
                     renderTextWithLineBreaks(matrixStack, desc_races, guiLeft + 75, guiTop + 140, 11299672, 27);
                 }
                 drawCenteredString(matrixStack, this.font, lang_races, guiLeft + (xSize/2) - 95, guiTop + 90, 11299672);
@@ -224,7 +403,7 @@ public class PlayerSizeGUI extends Screen{
                 lang_races = I18n.get("gui.race_tipo_3");
                 desc_races = I18n.get("gui.description_elves");
 
-                if (!Skins && !ScreenAccessory && ScreenInf && !ScreenRace) {
+                if (!Skins && !ScreenAccessory && ScreenInf || ScreenRace) {
                     renderTextWithLineBreaks(matrixStack, desc_races, guiLeft + 75, guiTop + 140, 11299672, 27);
                 }
                 drawCenteredString(matrixStack, this.font, lang_races, guiLeft + (xSize/2) - 95, guiTop + 110, 11299672);
@@ -237,7 +416,7 @@ public class PlayerSizeGUI extends Screen{
                 lang_races = I18n.get("gui.race_tipo_4");
                 desc_races = I18n.get("gui.description_kull");
 
-                if (!Skins && !ScreenAccessory && ScreenInf && !ScreenRace) {
+                if (!Skins && !ScreenAccessory && ScreenInf || ScreenRace) {
                     renderTextWithLineBreaks(matrixStack, desc_races, guiLeft + 75, guiTop + 150, 11299672, 27);
                 }
                 drawCenteredString(matrixStack, this.font, lang_races, guiLeft + (xSize/2) - 95, guiTop + 130, 11299672);
@@ -286,12 +465,28 @@ public class PlayerSizeGUI extends Screen{
         }
     }
 
+    public static void rotateLeft() {
+        rotationAngleY -= 20.0F;
+    }
+
+    private static void rotateRight() {
+        rotationAngleY += 20.0F;
+    }
+
+    public void resetRotation() {
+        if (restart) {
+            rotationAngleY = 180.0F;
+        }
+        restart = false;
+    }
+
     public static void renderEntityInInventory(int p_228187_0_, int p_228187_1_, int p_228187_2_, float p_228187_3_, float p_228187_4_, LivingEntity p_228187_5_) {
         float f = (float)Math.atan((double)(p_228187_3_ / 40.0F));
         float f1 = (float)Math.atan((double)(p_228187_4_ / 40.0F));
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float)p_228187_0_, (float)p_228187_1_, 1050.0F);
-        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
+        RenderSystem.scalef(scaleLarge, scale, -1.0F);
+
         MatrixStack matrixstack = new MatrixStack();
         matrixstack.translate(0.0D, 0.0D, 1000.0D);
         matrixstack.scale((float)p_228187_2_, (float)p_228187_2_, (float)p_228187_2_);
@@ -304,8 +499,8 @@ public class PlayerSizeGUI extends Screen{
         float f4 = p_228187_5_.xRot;
         float f5 = p_228187_5_.yHeadRotO;
         float f6 = p_228187_5_.yHeadRot;
-        p_228187_5_.yBodyRot = 180.0F + f * 20.0F;
-        p_228187_5_.yRot = 180.0F + f * 40.0F;
+        p_228187_5_.yBodyRot = rotationAngleY + f * 20.0F;
+        p_228187_5_.yRot = rotationAngleY + f * 40.0F;
         p_228187_5_.xRot = -f1 * 20.0F;
         p_228187_5_.yHeadRot = p_228187_5_.yRot;
         p_228187_5_.yHeadRotO = p_228187_5_.yRot;
@@ -326,4 +521,6 @@ public class PlayerSizeGUI extends Screen{
         p_228187_5_.yHeadRot = f6;
         RenderSystem.popMatrix();
     }
+
+
 }
