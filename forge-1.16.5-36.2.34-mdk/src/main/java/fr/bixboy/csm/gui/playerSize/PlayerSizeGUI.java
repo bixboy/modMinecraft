@@ -17,15 +17,16 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.awt.SystemColor.text;
 
 public class PlayerSizeGUI extends Screen{
     public PlayerSizeGUI() {
         super(new StringTextComponent("Player Size GUI"));
     }
-
-    private final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(CSM.MODID, "textures/ui_background.png");
 
     private int xSize = 174;
     private int ySize = 230;
@@ -66,14 +67,14 @@ public class PlayerSizeGUI extends Screen{
     private static float scale = 1.0F;
     private static float scaleLarge = 1.0F;
 
-    private static final ResourceLocation BUTTON_IMAGE1 = new ResourceLocation(CSM.MODID, "textures/bg_gui_base.png");
+    private String skin;
+    private int changeSkin = 0;
+    List<String> listSkins = new ArrayList<>();
 
-    private String titre;
-    private String paragraphe;
+    private static final ResourceLocation BUTTON_IMAGE1 = new ResourceLocation(CSM.MODID, "textures/bg_gui_base.png");
 
     @Override
     protected void init() {
-
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
 
@@ -292,10 +293,42 @@ public class PlayerSizeGUI extends Screen{
 
         return pose;
     }
+    boolean first = true;
+    private void skins(MatrixStack matrixStack) {
+
+        if (first) {
+            listSkins.add("skins1");
+            listSkins.add("skins2");
+            listSkins.add("skins3");
+            listSkins.add("skins4");
+            first = false;
+        }
+
+        if (Skins) {
+
+            skin = listSkins.get(changeSkin);
+            drawCenteredString(matrixStack, this.font, skin, guiLeft + 87, guiTop + 200, 11299672);
+
+            this.addButton(new ImageButton(guiLeft + 56,  guiTop + 200, 11, 13, 174, 88, 0, BUTTON_IMAGE1, changeSkins1 -> {
+
+                if (changeSkin > 0) {
+                    changeSkin--;
+                }
+            }));
+
+            this.addButton(new ImageButton(guiLeft + 105,  guiTop + 200, 11, 13, 174, 101, 0, BUTTON_IMAGE1, changeSkins2 -> {
+
+                if (changeSkin < listSkins.size() - 1) {
+                    changeSkin++;
+                }
+            }));
+        }
+    }
 
     private void drawButtonGender() {
 
         if (ScreenRace) {
+
             this.addButton(new ImageButton(guiLeft + 40,  guiTop + 70, 17, 16, posCheckF, 230, 0, BUTTON_IMAGE1, GirlButton -> {
                 checkF = true;
                 if(checkF) {
@@ -320,12 +353,34 @@ public class PlayerSizeGUI extends Screen{
         }
     }
 
+    private void changeSkin() {
+        switch (changeSkin)
+        {
+            case 0 :
+
+                break;
+
+            case 1 :
+
+                break;
+
+            case 2 :
+
+                break;
+
+            case 3 :
+
+                break;
+        }
+    }
+
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 
         this.renderBackground(matrices);
         drawBackground(matrices);
         drawButtonGender();
+        skins(matrices);
         drawText(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         resetRotation();
@@ -446,7 +501,7 @@ public class PlayerSizeGUI extends Screen{
                 endIndex = index + lineBreakIndex + 1;
                 line = text.substring(index, endIndex);
             }
-            lines.add(line.trim()); // Ajouter la ligne sans les espaces en fin de ligne
+            lines.add(line.trim());
             index = endIndex;
         }
 
@@ -456,9 +511,9 @@ public class PlayerSizeGUI extends Screen{
 
         for (String line : lines) {
             int textWidth = this.font.width(line);
-            int xOffset = (maxWidth - textWidth) / 2; // Calcul du décalage pour centrer le texte horizontalement
+            int xOffset = (maxWidth - textWidth) / 2;
             if (textWidth < maxWidth) {
-                xOffset = 0; // Ne pas centrer si la largeur du texte est inférieure à la largeur maximale
+                xOffset = 0;
             }
             this.font.draw(matrixStack, line, x + xOffset, y + yOffset, color);
             yOffset += lineHeight;
