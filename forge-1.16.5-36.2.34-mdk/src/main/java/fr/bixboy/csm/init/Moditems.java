@@ -23,6 +23,7 @@ public class Moditems {
     public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot", () -> new Item(new Item.Properties().tab(ModItemGroups.CSM_TAB)));
     public static final RegistryObject<Item> COPPER_STICK = ITEMS.register( "copper_stick", () -> new Item(new Item.Properties().tab(ModItemGroups.CSM_TAB).stacksTo(1)));
 
+
     public static final RegistryObject<Item> MIRROR = ITEMS.register( "mirror", () -> new Item(new Item.Properties().tab(ModItemGroups.CSM_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> COPPER_SWORD = ITEMS.register("copper_sword", () -> new SwordItem(CustomItemTiers.COPPER, 2, -2.4f, new Item.Properties().stacksTo(1).tab(ModItemGroups.CSM_TAB)));

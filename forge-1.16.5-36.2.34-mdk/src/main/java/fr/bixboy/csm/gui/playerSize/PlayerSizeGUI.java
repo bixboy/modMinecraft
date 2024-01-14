@@ -17,11 +17,9 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static java.awt.SystemColor.text;
 
 public class PlayerSizeGUI extends Screen{
     public PlayerSizeGUI() {
@@ -69,7 +67,7 @@ public class PlayerSizeGUI extends Screen{
 
     private String skin;
     private int changeSkin = 0;
-    List<String> listSkins = new ArrayList<>();
+    private static final List<String> listSkins = Arrays.asList("skin1", "skin2", "skin3");
 
     private static final ResourceLocation BUTTON_IMAGE1 = new ResourceLocation(CSM.MODID, "textures/bg_gui_base.png");
 
@@ -119,6 +117,7 @@ public class PlayerSizeGUI extends Screen{
         }));
 
         this.addButton(new Button(guiLeft + 58,  guiTop + 215, 60, 20, new TranslationTextComponent("Save"), saveButton -> {
+            PlayerSettings.savePlayerSize(scale, true);
             this.minecraft.setScreen((Screen)null);
             this.minecraft.mouseHandler.grabMouse();
         }));
@@ -293,16 +292,7 @@ public class PlayerSizeGUI extends Screen{
 
         return pose;
     }
-    boolean first = true;
     private void skins(MatrixStack matrixStack) {
-
-        if (first) {
-            listSkins.add("skins1");
-            listSkins.add("skins2");
-            listSkins.add("skins3");
-            listSkins.add("skins4");
-            first = false;
-        }
 
         if (Skins) {
 
@@ -311,16 +301,12 @@ public class PlayerSizeGUI extends Screen{
 
             this.addButton(new ImageButton(guiLeft + 56,  guiTop + 200, 11, 13, 174, 88, 0, BUTTON_IMAGE1, changeSkins1 -> {
 
-                if (changeSkin > 0) {
-                    changeSkin--;
-                }
+                changeSkin = (changeSkin - 1+ listSkins.size()) % listSkins.size();
             }));
 
             this.addButton(new ImageButton(guiLeft + 105,  guiTop + 200, 11, 13, 174, 101, 0, BUTTON_IMAGE1, changeSkins2 -> {
 
-                if (changeSkin < listSkins.size() - 1) {
-                    changeSkin++;
-                }
+                changeSkin = (changeSkin + 1) % listSkins.size();
             }));
         }
     }
@@ -535,7 +521,7 @@ public class PlayerSizeGUI extends Screen{
         restart = false;
     }
 
-    public static void renderEntityInInventory(int p_228187_0_, int p_228187_1_, int p_228187_2_, float p_228187_3_, float p_228187_4_, LivingEntity p_228187_5_) {
+    public void renderEntityInInventory(int p_228187_0_, int p_228187_1_, int p_228187_2_, float p_228187_3_, float p_228187_4_, LivingEntity p_228187_5_) {
         float f = (float)Math.atan((double)(p_228187_3_ / 40.0F));
         float f1 = (float)Math.atan((double)(p_228187_4_ / 40.0F));
         RenderSystem.pushMatrix();

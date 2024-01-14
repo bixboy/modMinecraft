@@ -1,0 +1,6 @@
+{
+  "parent": "block/button_inventory",
+  "texture": {
+    "texture": "minecraft:block/tnt_side"
+  }
+}

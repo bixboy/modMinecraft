@@ -1,5 +1,6 @@
 package fr.bixboy.csm;
 
+import fr.bixboy.csm.blocks.EventHandler;
 import fr.bixboy.csm.entity.ModEntities;
 import fr.bixboy.csm.entity.rederer.MinotaurRenderer;
 import fr.bixboy.csm.gui.playerSize.RightClickListener;
@@ -46,6 +47,7 @@ public class CSM {
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
 
         MinecraftForge.EVENT_BUS.register(new RightClickListener());
+        EventHandler.registerEvents();
     }
 
     private void clientSetup(FMLClientSetupEvent e)

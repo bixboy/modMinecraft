@@ -11,6 +11,8 @@
   "item.csm.copper_shovel": "Copper Shovel",
   "item.csm.amethyst_gem": "Amethyst Gem",
   "block.csm.amethyst_ore": "Amethyst Ore",
+  "block.csm.tnt_button": "TNT Button",
+  "block.csm.tnt_pressure_plate": "TNT Pressure Plate",
   "item.csm.amethyst_helmet": "Amethyst Helmet",
   "item.csm.amethyst_chestplate": "Amethyst Chestplate",
   "item.csm.amethyst_leggings": "Amethyst Leggings",

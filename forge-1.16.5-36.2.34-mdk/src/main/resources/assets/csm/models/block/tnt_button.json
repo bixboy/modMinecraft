@@ -1,0 +1,6 @@
+{
+  "parent": "block/button",
+  "texture": {
+    "texture": "minecraft:block/tnt_side"
+  }
+}

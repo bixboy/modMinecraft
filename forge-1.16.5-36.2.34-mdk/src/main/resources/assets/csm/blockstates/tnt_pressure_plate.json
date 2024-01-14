@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": {"model": "csm:block/tnt_pressure_plate"},
+    "powered=true": {"model": "csm:block/tnt_pressure_plate_down"}
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/pressure_plate_down",
+  "texture": {
+    "texture": "minecraft:block/tnt_side"
+  }
+}

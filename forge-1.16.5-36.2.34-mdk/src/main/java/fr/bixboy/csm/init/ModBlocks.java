@@ -3,9 +3,9 @@ package fr.bixboy.csm.init;
 import fr.bixboy.csm.CSM;
 import fr.bixboy.csm.blocks.BlockRedEmerald;
 import fr.bixboy.csm.utils.ModItemGroups;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ToolType;
@@ -26,6 +26,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> AMETHYST_ORE = createBlock("amethyst_ore", () -> new Block(AbstractBlock.Properties.of(Material.STONE).strength(3f, 15f).harvestTool(ToolType.PICKAXE).harvestLevel(3).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> COPPER_ORE = createBlock("copper_ore", () -> new Block(AbstractBlock.Properties.of(Material.STONE).strength(2f, 10f).harvestTool(ToolType.PICKAXE).harvestLevel(2).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> TNT_BUTTON = createBlock( "tnt_button", () -> new StoneButtonBlock(AbstractBlock.Properties.of(Material.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).strength(6f).noCollission()));
+
+    public static final RegistryObject<Block> TNT_PRESSURE_PLATE = createBlock( "tnt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.of(Material.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).strength(6f)));
 
     public static RegistryObject<Block> createBlock(String name, Supplier<? extends Block> supplier)
     {
